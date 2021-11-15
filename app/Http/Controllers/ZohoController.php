@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 
 class ZohoController extends Controller
 {
-    public function getAccessToken()
+    private function getAccessToken()
     {
 
         $post = [
@@ -29,7 +29,7 @@ class ZohoController extends Controller
 
     }
 
-    public function zohoListDials()
+    public function zohoListDeals()
     {
         $access_token = $this->getAccessToken();
 
@@ -52,7 +52,7 @@ class ZohoController extends Controller
         print_r($response);
     }
 
-    public function zohoAddDial()
+    public function zohoAddDeal()
     {
         $access_token = $this->getAccessToken();
 
@@ -61,22 +61,22 @@ class ZohoController extends Controller
         $post_data=[
             'data' => [
                 [
-                    'Deal_Name'     => 'Test Deal',
-                    'Amount'        => '333000',
-                    'Account_Name'  => 'Name of deals',
+                    'Deal_Name'     => 'Test Deal 1',
+                    'Amount'        => '432000',
+                    'Account_Name'  => 'Name of deals 1',
                     'Stage'         => 'Current stage2',
                     'Closing_Date'  => '2021-11-19',
-                    'Contact_Name'  => '5090311000000366190',
-                    'Description'   => '... ',
+                    'Contact_Name'  => '5090311000000366191',
+                    'Description'   => 'Description 1 ',
                 ],
                 [
-                    'Deal_Name'     => 'Test Deal',
+                    'Deal_Name'     => 'Test Deal 2',
                     'Amount'        => '333000',
-                    'Account_Name'  => 'Name of deals',
+                    'Account_Name'  => 'Name of deals 2',
                     'Stage'         => 'Current stage1',
                     'Closing_Date'  => '2021-11-21',
                     'Contact_Name'  => '5090311000000366190',
-                    'Description'   => '... ...',
+                    'Description'   => 'Description 2',
                 ],
             ],
             'triger' => [

@@ -18,5 +18,5 @@ Route::get('/', function () {
 });
 
 // Add contact in ZOHO
-Route::get('/zoho-add-dial', [ZohoController::class, 'zohoAddDial'])->name('zohoAddDial');
-Route::get('/zoho-list-dials', [ZohoController::class, 'zohoListDials'])->name('zohoListDials');
+Route::get('/zoho-add-deal', [ZohoController::class, 'zohoAddDeal'])->name('zohoAddDeal');
+Route::get('/zoho-list-deals', [ZohoController::class, 'zohoListDeals'])->name('zohoListDeals');

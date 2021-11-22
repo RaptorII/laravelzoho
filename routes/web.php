@@ -14,9 +14,10 @@ use App\Http\Controllers\ZohoController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('zoho-list-deals');
 });
 
 // Add contact in ZOHO
-Route::get('/zoho-add-deal', [ZohoController::class, 'zohoAddDeal'])->name('zohoAddDeal');
+Route::post('/zoho-add-deal', [ZohoController::class, 'zohoAddDeal'])->name('zohoAddDeal');
+Route::get('/zoho-add-deal-view', [ZohoController::class, 'zohoAddDealView'])->name('zohoAddDealView');
 Route::get('/zoho-list-deals', [ZohoController::class, 'zohoListDeals'])->name('zohoListDeals');

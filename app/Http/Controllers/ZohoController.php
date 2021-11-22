@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 
 class ZohoController extends Controller
 {
@@ -29,10 +29,35 @@ class ZohoController extends Controller
 
     }
 
+    public function zohoListСontacts()
+    {
+        $access_token = $this->getAccessToken();
+
+//        echo 'acces token=';
+//        print_r($access_token);
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://www.zohoapis.com/crm/v2/Contacts');
+        curl_setopt($ch, CURLOPT_POST, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_HTTPHEADER,
+            [
+                'Authorization: Zoho-oauthtoken ' . $access_token,
+                "Content-Type: application/x-www-form-urlencoded",
+            ]
+        );
+
+        $response = json_decode( curl_exec( $ch ), TRUE );
+
+        return $response['data'];
+    }
+
     public function zohoListDeals()
     {
         $access_token = $this->getAccessToken();
 
+        echo 'acces token=';
         print_r($access_token);
 
         $ch = curl_init();
@@ -47,36 +72,37 @@ class ZohoController extends Controller
             ]
         );
 
-        $response = json_decode( curl_exec( $ch ) );
-        echo '<pre>';
-        print_r($response);
+        $response = json_decode( curl_exec( $ch ), TRUE );
+
+        return view('zoho-list-deals', ['deals' => $response]);
+
     }
 
-    public function zohoAddDeal()
+    public function zohoAddDealView()
     {
         $access_token = $this->getAccessToken();
+        $contacts = $this->zohoListСontacts();
 
-        //	Amount	Stage	Closing_Date	Account_Name	Contact_Name
+        return view('zoho-add-deal', [
+            'message' => 'all is fine!',
+            'contacts' => $contacts,
+        ]);
+    }
+
+    public function zohoAddDeal(Request $request)
+    {
+        $access_token = $this->getAccessToken();
 
         $post_data=[
             'data' => [
                 [
-                    'Deal_Name'     => 'Test Deal 1',
-                    'Amount'        => '432000',
-                    'Account_Name'  => 'Name of deals 1',
-                    'Stage'         => 'Current stage2',
-                    'Closing_Date'  => '2021-11-19',
-                    'Contact_Name'  => '5090311000000366191',
-                    'Description'   => 'Description 1 ',
-                ],
-                [
-                    'Deal_Name'     => 'Test Deal 2',
-                    'Amount'        => '333000',
-                    'Account_Name'  => 'Name of deals 2',
-                    'Stage'         => 'Current stage1',
-                    'Closing_Date'  => '2021-11-21',
-                    'Contact_Name'  => '5090311000000366190',
-                    'Description'   => 'Description 2',
+                    'Deal_Name'     => $request->input('Deal_Name'),
+                    'Amount'        => $request->input('Amount'),
+                    'Account_Name'  => $request->input('Account_Name'),
+                    'Stage'         => $request->input('Stage'),
+                    'Closing_Date'  => $request->input('Closing_Date'),
+                    'Contact_Name'  => $request->input('Contact_Name'),
+                    'Description'   => $request->input('Description'),
                 ],
             ],
             'triger' => [
@@ -99,10 +125,9 @@ class ZohoController extends Controller
             ]
         );
 
-        $response = json_decode( curl_exec( $ch ) );
-        echo '<pre>';
-        print_r($response);
+        curl_exec( $ch );
 
+        return redirect()->route('zohoListDeals');
     }
 
 }

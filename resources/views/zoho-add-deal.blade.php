@@ -26,15 +26,15 @@
         </style>
     </head>
     <body class="antialiased">
+    <ul>
+        <li><a href="/zoho-add-deal-view">zoho-add-deal-view</a></li>
+        <li><a href="/zoho-list-deals">zoho-list-deals</a></li>
+    </ul>
 
-    {{ $message }}<br>
-{{--    <th>Deal_Name</th>--}}
-{{--    <th>Amount</th>--}}
-{{--    <th>Account_Name</th>--}}
-{{--    <th>Stage</th>--}}
-{{--    <th>Closing_Date</th>--}}
-{{--    <th>Contact_Name</th>--}}
-{{--    <th>Description</th>--}}
+
+
+{{--    {{ $message ?? '' }}--}}
+    <br>
 
     <?php
 
@@ -65,7 +65,7 @@
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
 
             <?php
-                dump($message);
+//                dump($message ?? '');
                 dump($contacts);
             ?>
 

@@ -21,6 +21,10 @@
         </style>
     </head>
     <body class="antialiased">
+    <ul>
+        <li><a href="/zoho-add-deal-view">zoho-add-deal-view</a></li>
+        <li><a href="/zoho-list-deals">zoho-list-deals</a></li>
+    </ul>
 
         <table class="table-auto">
             <thead>

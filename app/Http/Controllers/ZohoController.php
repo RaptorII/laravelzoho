@@ -84,7 +84,7 @@ class ZohoController extends Controller
         $contacts = $this->zohoListСontacts();
 
         return view('zoho-add-deal', [
-            'message' => 'all is fine!',
+//            'message' => 'all is fine!',
             'contacts' => $contacts,
         ]);
     }

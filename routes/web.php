@@ -14,7 +14,7 @@ use App\Http\Controllers\ZohoController;
 */
 
 Route::get('/', function () {
-    return view('zoho-list-deals');
+    return redirect()->route('zohoListDeals');
 });
 
 // Add contact in ZOHO

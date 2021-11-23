@@ -83,8 +83,7 @@ class ZohoController extends Controller
         $access_token = $this->getAccessToken();
         $contacts = $this->zohoListСontacts();
 
-        return view('zoho-add-deal', [
-//            'message' => 'all is fine!',
+        return view('zoho-add-deal-view', [
             'contacts' => $contacts,
         ]);
     }
@@ -125,9 +124,15 @@ class ZohoController extends Controller
             ]
         );
 
-        curl_exec( $ch );
+        $response = json_decode( curl_exec( $ch ), TRUE );
 
-        return redirect()->route('zohoListDeals');
+        if ($response['data'][0]['status'] == 'error') {
+            return view('zoho-add-deal-view', [
+                'message' => $response['data'][0]['message'],
+                'details' => $response['data'][0]['details']['api_name'],
+                'contacts' => $this->zohoListСontacts()
+            ]);
+        } else return redirect()->route('zohoListDeals');
     }
 
 }
